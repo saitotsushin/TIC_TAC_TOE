@@ -39,7 +39,6 @@ public class GManager : MonoBehaviour
                 board[i, j] = -1;
             }
         }
-        m_OnlineManager.StartOnline();
     }
  
     // Update is called once per frame
@@ -83,7 +82,8 @@ public class GManager : MonoBehaviour
  
     public void OnClickRetry()
     {
-        SceneManager.LoadScene("SampleScene");
+        OnlineManager.instance.LeaveRoom();
+        SceneManager.LoadScene("Main");
     }
     public void OnClickDebug()//デバッグ用（各配列の値を出力する）
     {
@@ -96,8 +96,8 @@ public class GManager : MonoBehaviour
         }
     }
     public void SetMark(Vector3 _Pos,Vector2Int _PosXY,int _nowPlayer){
-        GameObject prefab = prefabCircle;
-        if(1 == _nowPlayer) prefab = prefabDiamond;
+        GameObject prefab = prefabDiamond;
+        if(1 == _nowPlayer) prefab = prefabCircle;
         Instantiate(prefab, _Pos, Quaternion.identity);//ここまでは1次元配列ver.と同じ記載
         board[_PosXY.y,_PosXY.x] = nowPlayer; //2次元配列なので[x,y]にプレイヤー番号を入れる
     }
